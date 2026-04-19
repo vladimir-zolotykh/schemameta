@@ -6,6 +6,7 @@ register_pattern.py
 example4.py
 polys.bin
 *.mp3
+users.dat
 # !example.mp3
 example.py
 example_clsdec.py
