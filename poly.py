@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # PYTHON_ARGCOMPLETE_OK
+from operator import itemgetter
+
+
+class TupleMeta(type):
+    def __init__(cls, *args):
+        super().__init__(*args)
+        for n, field in enumerate(cls._fields):
+            setattr(cls, field, itemgetter(n))
 
 
 class Poly(tuple):
@@ -12,5 +20,9 @@ class Poly(tuple):
         return f"Poly{super().__repr__()}"
 
 
-poly = Poly(1, 2, 3)
+class Point(Poly, metaclass=TupleMeta):
+    _fields = ["x", "y"]
+
+
+poly = Poly(3, 5)
 print(poly)
