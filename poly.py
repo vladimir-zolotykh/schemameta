@@ -11,18 +11,19 @@ class TupleMeta(type):
             setattr(cls, field, itemgetter(n))
 
 
-class Poly(tuple):
+class _Tuple(tuple):
     def __new__(cls, *args):
-        # turn super(Poly, cls).__new__(cls, args)
+        assert len(args) == len(cls._fields)
+        print(f"{cls = }")
         return super().__new__(cls, args)
 
     def __repr__(self):
         return f"{self.__class__.__name__}{super().__repr__()}"
 
 
-class Point(Poly, metaclass=TupleMeta):
+class Point(_Tuple, metaclass=TupleMeta):
     _fields = ["x", "y"]
 
 
-poly = Poly(3, 5)
-print(poly)
+p = Point(3, 5)
+print(p)
