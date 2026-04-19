@@ -5,8 +5,8 @@ from operator import itemgetter
 
 
 class TupleMeta(type):
-    def __init__(cls, *args):
-        super().__init__(*args)
+    def __init__(cls, name, bases, namespace, **kwargs):
+        super().__init__(name, bases, namespace, **kwargs)
         for n, field in enumerate(cls._fields):
             setattr(cls, field, itemgetter(n))
 
@@ -17,7 +17,7 @@ class Poly(tuple):
         return super().__new__(cls, args)
 
     def __repr__(self):
-        return f"Poly{super().__repr__()}"
+        return f"{self.__class__.__name__}{super().__repr__()}"
 
 
 class Point(Poly, metaclass=TupleMeta):
