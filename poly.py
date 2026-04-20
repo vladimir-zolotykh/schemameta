@@ -14,7 +14,9 @@ class TupleMeta(type):
 
 class _Tuple(tuple, metaclass=TupleMeta):
     def __new__(cls, *args):
-        assert len(args) == len(cls._fields)
+        assert len(args) == len(cls._fields), "{} arguments required".format(
+            len(cls._fields)
+        )
         return super().__new__(cls, args)
 
     def __repr__(self):
